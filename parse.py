@@ -169,8 +169,9 @@ def main():
 				y = np.array(v)
 				#print(x)
 				#print(y)
-				target_group =re.sub(' - .*', '', k)
-				graph_name = 'Vendor=' + key + ' AdName-TargetGroup=' + target_group
+				#target_group = re.sub(' - .*', '', k)
+				target_group = k
+				graph_name = 'Ad-Target = ' + target_group
 				graph_name2 = 'Vendor = ' + key
 				plt.xticks(range(0, len(x) + 1))
 				plt.xlim(0, len(x)+1)
