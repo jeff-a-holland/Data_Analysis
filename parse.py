@@ -176,7 +176,7 @@ def main():
 				plt.xlim(0, len(x)+1)
 				plt.plot(x, y, linestyle="-", marker="o", label=graph_name)
 				plt.grid()
-				plt.xlabel('Ad Campaign Day', fontsize=15, fontweight='bold', labelpad=5)
+				plt.xlabel('Ad Campaign Week', fontsize=15, fontweight='bold', labelpad=5)
 				plt.ylabel('CTR %', fontsize=15, fontweight='bold', labelpad=5)
 				plt.title(graph_name2,fontsize=15, fontweight='bold', pad='5.0')
 				plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
