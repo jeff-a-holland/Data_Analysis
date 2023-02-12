@@ -9,7 +9,6 @@ def main():
 	import pandas as pd
 	import numpy as np
 	import matplotlib.pyplot as plt
-	from matplotlib_venn import venn2
 
 	# Clean up from last run
 	dir_path = './output'
@@ -26,10 +25,13 @@ def main():
 	os.mkdir(spreadsheet_path)
 
 	# Pre-declare XLSX Workbook
-	workbook = xlsxwriter.Workbook(f'CTR_Percent_Graphs.xlsx')
+	workbook = xlsxwriter.Workbook(f'CTR_VTR_Percent_Graphs.xlsx')
 
 	# Read and store content of excel file
-	read_file = pd.read_excel("./input/input.xlsx")
+	input_list = [f for f in os.listdir('./input') if f.endswith(('.xlsx'))]
+	print(input_list)
+	filename = './input/' + input_list[0]
+	read_file = pd.read_excel(f'{filename}')
 
 	# Write the dataframe object into csv file
 	read_file.to_csv("./input/input.csv", index=None, header=True)
@@ -106,7 +108,10 @@ def main():
 			temp_list.append(l[0])
 			temp_list.append(l[7])
 			temp_list.append(l[8].lstrip())
-			temp_list.append(l[14])
+			if l[13] == '':
+				temp_list.append(l[14])
+			else:
+				temp_list.append(l[13])
 			vendor = l[4]
 			temp_dict[vendor] = temp_list
 			cntr += 1
@@ -117,7 +122,10 @@ def main():
 			temp_list.append(l[0])
 			temp_list.append(l[7])
 			temp_list.append(l[8].lstrip())
-			temp_list.append(l[14])
+			if l[13] == '':
+				temp_list.append(l[14])
+			else:
+				temp_list.append(l[13])
 			vendor = l[4]
 			cntr = 0
 
@@ -125,7 +133,10 @@ def main():
 			temp_list.append(l[0])
 			temp_list.append(l[7])
 			temp_list.append(l[8].lstrip())
-			temp_list.append(l[14])
+			if l[13] == '':
+				temp_list.append(l[14])
+			else:
+				temp_list.append(l[13])
 			temp_dict[vendor] = temp_list
 			cntr += 1
 	#print('\n')
@@ -162,8 +173,8 @@ def main():
 				c = f'Vendor is:  {key}'
 				g = f'Ad Name/Target Group is:  {k}'
 				print(f'  Ad Name/Target Group is: {k}')
-				d = f'Ad Name/Target CTR % Values are:  {v}'
-				print(f'  Ad Name/Target CTR % Values are: {v}\n')
+				d = f'Ad Name/Target CTR/VTR % Values are:  {v}'
+				print(f'  Ad Name/Target CTR/VTR % Values are: {v}\n')
 				x_temp = np.array(range(len(v)))
 				x = x_temp + 1
 				y = np.array(v)
@@ -172,13 +183,13 @@ def main():
 				#target_group = re.sub(' - .*', '', k)
 				target_group = k
 				graph_name = 'Ad-Target = ' + target_group
-				graph_name2 = 'Vendor = ' + key
+				graph_name2 = 'Vendor = ' + key + '\n(VTR is used if populated in input data, otherwise CTR is used)'
 				plt.xticks(range(0, len(x) + 1))
 				plt.xlim(0, len(x)+1)
 				plt.plot(x, y, linestyle="-", marker="o", label=graph_name)
 				plt.grid()
 				plt.xlabel('Ad Campaign Week', fontsize=15, fontweight='bold', labelpad=5)
-				plt.ylabel('CTR %', fontsize=15, fontweight='bold', labelpad=5)
+				plt.ylabel('CTR/VTR %', fontsize=15, fontweight='bold', labelpad=5)
 				plt.title(graph_name2,fontsize=15, fontweight='bold', pad='5.0')
 				plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
 				fancybox = True, shadow = True, ncol = 3)
@@ -186,10 +197,10 @@ def main():
 				for xx,yy in zip(x,y):
 					label = "{:.2f}%".format(yy)
 					plt.annotate(label,
-								 (xx,yy),
-								 textcoords="offset points",
-								 xytext=(5,10),
-								 ha='center')
+					             (xx,yy),
+					             textcoords="offset points",
+					             xytext=(5,10),
+					             ha='center')
 			plt.savefig(graph_name, dpi=300)
 			plt.clf()
 			temp2_dict = {}
@@ -206,7 +217,7 @@ def main():
 	print('\nNow creating spreadsheets. Please wait...')
 	print('Done with spreadsheets.\n')
 
-	shutil.move('CTR_Percent_Graphs.xlsx', './output/spreadsheet/CTR_Percent_Graphs.xlsx')
+	shutil.move('CTR_VTR_Percent_Graphs.xlsx', './output/spreadsheet/CTR_VTR_Percent_Graphs.xlsx')
 	png_list = [f for f in os.listdir('.') if f.endswith(('.png'))]
 	for f in png_list:
 		print(f)
