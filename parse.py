@@ -182,12 +182,12 @@ def main():
 				#print(y)
 				#target_group = re.sub(' - .*', '', k)
 				target_group = k
-				graph_name = 'Ad-Target = ' + target_group
+				image_name = key
+				graph_name = 'Ad-Target = ' +  target_group
 				graph_name2 = 'Vendor = ' + key + '\n(VTR is used if populated in input data, otherwise CTR is used)'
 				plt.xticks(range(0, len(x) + 1))
 				plt.xlim(0, len(x)+1)
 				plt.plot(x, y, linestyle="-", marker="o", label=graph_name)
-				plt.grid()
 				plt.xlabel('Ad Campaign Week', fontsize=15, fontweight='bold', labelpad=5)
 				plt.ylabel('CTR -or- VTR %', fontsize=15, fontweight='bold', labelpad=5)
 				plt.title(graph_name2,fontsize=15, fontweight='bold', pad='5.0')
@@ -201,14 +201,14 @@ def main():
 					             textcoords="offset points",
 					             xytext=(5,10),
 					             ha='center')
-			plt.savefig(graph_name, dpi=300)
+			plt.savefig(image_name, dpi=300)
 			plt.clf()
 			temp2_dict = {}
 			temp2_list = []
 			temp3_dict = {}
 
 		worksheet = workbook.add_worksheet(f'{key}')
-		worksheet.insert_image('A1', f'{graph_name}.png', {'x_scale': 0.8, 'y_scale': 0.8})
+		worksheet.insert_image('A1', f'{image_name}.png', {'x_scale': 0.8, 'y_scale': 0.8})
 
 	workbook.close()
 
