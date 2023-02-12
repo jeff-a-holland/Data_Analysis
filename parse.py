@@ -173,8 +173,8 @@ def main():
 				c = f'Vendor is:  {key}'
 				g = f'Ad Name/Target Group is:  {k}'
 				print(f'  Ad Name/Target Group is: {k}')
-				d = f'Ad Name/Target CTR/VTR % Values are:  {v}'
-				print(f'  Ad Name/Target CTR/VTR % Values are: {v}\n')
+				d = f'Ad Name/Target CTR -or- VTR % Values are:  {v}'
+				print(f'  Ad Name/Target CTR -or- VTR % Values are: {v}\n')
 				x_temp = np.array(range(len(v)))
 				x = x_temp + 1
 				y = np.array(v)
@@ -189,7 +189,7 @@ def main():
 				plt.plot(x, y, linestyle="-", marker="o", label=graph_name)
 				plt.grid()
 				plt.xlabel('Ad Campaign Week', fontsize=15, fontweight='bold', labelpad=5)
-				plt.ylabel('CTR/VTR %', fontsize=15, fontweight='bold', labelpad=5)
+				plt.ylabel('CTR -or- VTR %', fontsize=15, fontweight='bold', labelpad=5)
 				plt.title(graph_name2,fontsize=15, fontweight='bold', pad='5.0')
 				plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05),
 				fancybox = True, shadow = True, ncol = 3)
